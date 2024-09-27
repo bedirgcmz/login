@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useUserContext } from "@/context/AuthContext";
+import { useUserContext } from "@/context/authcontext";
 import { userContextType } from "@/utils/types";
 import { registeredUser } from "@/utils/users";
 import { useRouter } from "next/navigation"; // useRouter'ı içe aktarın

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AiFillHome } from "react-icons/ai";
 import { RiLoginCircleFill, RiLoginCircleLine } from "react-icons/ri";
-import { useUserContext } from "@/context/AuthContext";
+import { useUserContext } from "@/context/authcontext";
 import { userContextType } from "@/utils/types";
 import ProfileIcon from "../ProfileIcon";
 

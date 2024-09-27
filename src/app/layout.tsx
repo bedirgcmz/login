@@ -1,6 +1,6 @@
 // layout.tsx
 import "@/styles/global.css";
-import { UserProvider } from "@/context/AuthContext";
+import { UserProvider } from "@/context/authcontext";
 import Menu from "@/components/Menu";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
