@@ -3,6 +3,7 @@ export type UserType = {
   password: string;
   favoriList: string[];
   image: string;
+  id: number;
 };
 
 export type userContextType = {

@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AiFillHome } from "react-icons/ai";
 import { RiLoginCircleFill, RiLoginCircleLine } from "react-icons/ri";
-import { FaRegUserCircle } from "react-icons/fa";
 import { useUserContext } from "@/context/AuthContext";
 import { userContextType } from "@/utils/types";
+import ProfileIcon from "../ProfileIcon";
 
 const categories = ["Seafood", "Vegetarian", "Chicken", "Dessert", "Beef"];
 
@@ -56,15 +56,16 @@ const Menu = () => {
             ))}
           </ul>
         ) : (
-          <p>Please log in to see categories</p>
+          <p>Please log in to see categories!</p>
         )}
 
         {/* Sağ Taraf: Login Butonu */}
-        <div className="hidden md:flex justify-end">
+        <div className="hidden md:flex justify-end z-10">
+          {loggedIn ? <ProfileIcon /> : ""}
           <Link href="/login" legacyBehavior>
-            <a className="flex items-center justify-center h-8 px-4 text-[#7f5539] border border-[#b08968] rounded hover:bg-[#9c6644] hover:text-[#e6ccb2]">
+            <a className="flex items-center justify-center h-8 px-2 text-[#7f5539] border border-[#b08968] rounded hover:bg-[#9c6644] hover:text-[#e6ccb2]">
               {loggedIn ? (
-                <div onClick={handleLogout} className="flex w-20 items-center justify-center">
+                <div onClick={handleLogout} className="flex w-18 items-center justify-center">
                   <span className="me-2">Logout</span> <RiLoginCircleLine />
                 </div>
               ) : (
@@ -73,9 +74,6 @@ const Menu = () => {
                 </div>
               )}
             </a>
-          </Link>
-          <Link href="/login" legacyBehavior>
-            <FaRegUserCircle />
           </Link>
         </div>
 

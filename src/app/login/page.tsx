@@ -1,66 +1,3 @@
-// "use client";
-// import React, { useState } from "react";
-// import { useUserContext } from "@/context/AuthContext";
-// import { userContextType } from "@/utils/types";
-// import { registeredUser } from "@/utils/users";
-
-// const LoginPage = () => {
-//   const { user, setUser, loggedIn, setLoggedIn } = useUserContext() as userContextType;
-//   const [username, setUsername] = useState("");
-//   const [password, setPassword] = useState("");
-
-//   const handleLogin = () => {
-//     // Here you would typically perform authentication, like calling an API
-//     // For simplicity, we're just checking hardcoded values
-//     const loggedInUser = registeredUser.find((user) => user.name === username);
-//     if (loggedInUser) {
-//       setLoggedIn(true);
-//       setUser(loggedInUser);
-//     } else {
-//       alert("Invalid username or password");
-//     }
-//   };
-
-//   const handleLogout = () => {
-//     setLoggedIn(false);
-//     setUsername("");
-//     setPassword("");
-//   };
-
-//   console.log(user);
-
-//   return (
-//     <div>
-//       {loggedIn ? (
-//         <div>
-//           <p>Welcome, {username}!</p>
-//           <button onClick={handleLogout}>Logout</button>
-//         </div>
-//       ) : (
-//         <div>
-//           <input
-//             type="text"
-//             placeholder="Username"
-//             value={username}
-//             onChange={(e) => setUsername(e.target.value)}
-//           />
-//           <br />
-//           <input
-//             type="password"
-//             placeholder="Password"
-//             value={password}
-//             onChange={(e) => setPassword(e.target.value)}
-//           />
-//           <br />
-//           <button onClick={handleLogin}>Login</button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default LoginPage;
-
 "use client";
 import { useState } from "react";
 import { useUserContext } from "@/context/AuthContext";
@@ -68,6 +5,7 @@ import { userContextType } from "@/utils/types";
 import { registeredUser } from "@/utils/users";
 import { useRouter } from "next/navigation"; // useRouter'ı içe aktarın
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const { user, setUser, loggedIn, setLoggedIn } = useUserContext() as userContextType;
@@ -82,7 +20,19 @@ const LoginPage = () => {
     if (loggedInUser && loggedInUser.password === password) {
       setLoggedIn(true);
       setUser(loggedInUser);
-      alert("Login successful!");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Successful",
+        showConfirmButton: false,
+        timer: 800,
+        width: "250px", // Modal genişliğini ayarlamak için
+        customClass: {
+          popup: "p-2 text-sm", // İçeriğin boyutunu küçültmek için
+          icon: "text-xs", // İkonun boyutunu küçültmek için
+          title: "text-sm", // Başlık boyutunu küçültmek için
+        },
+      });
 
       // Oturum açma başarılı olduğunda ana sayfaya yönlendir
       router.push("/");

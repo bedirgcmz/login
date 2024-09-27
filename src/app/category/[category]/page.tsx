@@ -1,7 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { registeredUser } from "@/utils/users";
+import { useUserContext } from "@/context/AuthContext";
+import { userContextType } from "@/utils/types";
+import Swal from "sweetalert2";
+import Link from "next/link";
 
 const CategoryPage = ({ params }: { params: { category: string } }) => {
+  const userContext = useUserContext();
+  const { loggedIn, setLoggedIn, user, setUser } = userContext as userContextType;
   const [meals, setMeals] = useState<any[]>([]); // Yemek verilerini tutmak için state
   const [visibleCount, setVisibleCount] = useState<number>(6); // Başlangıçta görüntülenecek yemek sayısı
   const [isMoreAvailable, setIsMoreAvailable] = useState<boolean>(true); // Daha fazla ürün olup olmadığını kontrol etmek için
@@ -35,6 +42,37 @@ const CategoryPage = ({ params }: { params: { category: string } }) => {
     }
   };
 
+  const addMealToFavoriList = (pMealId: string) => {
+    // registeredUser.find((item) => item.id == user?.id)?.favoriList.includes(pMealId) ? registeredUser.find((item) => item.id == user?.id)?.favoriList.push(pMealId) : "";
+    // registeredUser içindeki ilgili kullanıcıyı bul
+    const userItem = registeredUser.find((item) => item.id === user?.id);
+
+    // Eğer kullanıcı varsa ve favori listesi tanımlı ise
+    if (userItem && userItem.favoriList) {
+      // favoriList içinde pMealId yoksa, ekle
+      if (!userItem.favoriList.includes(pMealId)) {
+        userItem.favoriList.push(pMealId);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Successful",
+          showConfirmButton: false,
+          timer: 800,
+          width: "250px", // Modal genişliğini ayarlamak için
+          customClass: {
+            popup: "p-2 text-sm", // İçeriğin boyutunu küçültmek için
+            icon: "text-xs", // İkonun boyutunu küçültmek için
+            title: "text-sm", // Başlık boyutunu küçültmek için
+          },
+        });
+      } else {
+        Swal.fire("You already added this to your favorites list!");
+      }
+    }
+
+    console.log(registeredUser);
+  };
+
   return (
     <div className="p-8">
       <h1 className="text-3xl font-bold mb-4 text-center">
@@ -63,8 +101,15 @@ const CategoryPage = ({ params }: { params: { category: string } }) => {
 
             {/* Kartın altındaki butonlar */}
             <div className="flex justify-between items-center mt-auto">
-              <button className="text-[#b08968] hover:text-[#7f5539]">Recipe</button>
-              <button className="text-green-500 hover:text-green-700">Save</button>
+              <Link href={`/recipe/${meal.idMeal}`} className="text-[#b08968] hover:text-[#7f5539]">
+                Recipe
+              </Link>
+              <button
+                onClick={() => addMealToFavoriList(meal.idMeal)}
+                className="text-green-500 hover:text-green-700"
+              >
+                Save
+              </button>
             </div>
           </div>
         ))}

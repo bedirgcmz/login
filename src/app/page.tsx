@@ -2,13 +2,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { registeredUser } from "@/utils/users";
 import { useUserContext } from "@/context/AuthContext";
 import { userContextType } from "@/utils/types";
+import Swal from "sweetalert2";
 import { FaSearch } from "react-icons/fa"; // React icons'dan search icon'u ekleniyor
+import Link from "next/link";
 
 export default function Home() {
   const userContext = useUserContext();
-  const { loggedIn } = userContext as userContextType;
+  const { loggedIn, setLoggedIn, user, setUser } = userContext as userContextType;
 
   const [meals, setMeals] = useState<any[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -76,8 +79,41 @@ export default function Home() {
     }
   };
 
+  const addMealToFavoriList = (pMealId: string) => {
+    if (!loggedIn) {
+      Swal.fire("Please log in for this feature.!");
+      console.log(user);
+    } else {
+      const userItem = registeredUser.find((item) => item.id === user?.id);
+
+      // Eğer kullanıcı varsa ve favori listesi tanımlı ise
+      if (userItem && userItem.favoriList) {
+        // favoriList içinde pMealId yoksa, ekle
+        if (!userItem.favoriList.includes(pMealId)) {
+          userItem.favoriList.push(pMealId);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Successful",
+            showConfirmButton: false,
+            timer: 800,
+            width: "250px", // Modal genişliğini ayarlamak için
+            customClass: {
+              popup: "p-2 text-sm", // İçeriğin boyutunu küçültmek için
+              icon: "text-xs", // İkonun boyutunu küçültmek için
+              title: "text-sm", // Başlık boyutunu küçültmek için
+            },
+          });
+        } else {
+          Swal.fire("You already added this to your favorites list!");
+        }
+      }
+    }
+  };
+
   return (
     <div className="w-full px-8 py-6">
+      <h1 className="text-center text-2xl mb-8">Enjoy every moment of cooking!</h1>
       {/* Arama çubuğu ve butonlar */}
       <div className="flex flex-col md:flex-row items-center justify-center mb-8 gap-4">
         <div className="w-full md:w-auto flex justify-center ">
@@ -122,8 +158,18 @@ export default function Home() {
 
               {/* Kartın altındaki butonlar */}
               <div className="flex justify-between items-center mt-auto">
-                <button className="text-[#b08968] hover:text-[#7f5539]">Recipe</button>
-                <button className="text-green-500 hover:text-green-700">Save</button>
+                <Link
+                  href={`/recipe/${meal.idMeal}`}
+                  className="text-[#b08968] hover:text-[#7f5539]"
+                >
+                  Recipe
+                </Link>
+                <button
+                  onClick={() => addMealToFavoriList(meal.idMeal)}
+                  className="text-green-500 hover:text-green-700"
+                >
+                  Save
+                </button>
               </div>
             </div>
           ))
