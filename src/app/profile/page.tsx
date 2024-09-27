@@ -8,13 +8,6 @@ import Link from "next/link";
 export default function Profile() {
   const { user, setUser, loggedIn, setLoggedIn } = useUserContext() as userContextType;
 
-  //   const userData = {
-  //     name: "Bedir",
-  //     password: "1234abc",
-  //     favoriList: [],
-  //     image: "https://picsum.photos/id/121/200/200",
-  //   };
-
   const [showPassword, setShowPassword] = useState(false);
 
   return (

@@ -1,6 +1,3 @@
-// src/app/page.tsx
-import Menu from "@/components/Menu";
-
 export default function Home() {
   return (
     <div>
