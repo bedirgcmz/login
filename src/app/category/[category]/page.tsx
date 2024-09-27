@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { registeredUser } from "@/utils/users";
-import { useUserContext } from "@/context/AuthContext";
+import { useUserContext } from "../../../context/AuthContext";
 import { userContextType } from "@/utils/types";
 import Swal from "sweetalert2";
 import Link from "next/link";
