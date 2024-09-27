@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Charmonman:wght@400;700&display=swap");
+
+body {
+  background-color: #ede0d4;
+  color: #745555;
+  box-sizing: border-box;
+}
+.charmonman-bold {
+  font-family: "Charmonman", cursive;
+  font-weight: 700;
+  font-style: normal;
+}
