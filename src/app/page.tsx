@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from "react";
 import { registeredUser } from "@/utils/users";
-import { useUserContext } from "@/context/AuthContext";
+import { useUserContext } from "@/newcontext/AuthContext";
 import { userContextType } from "@/utils/types";
 import Swal from "sweetalert2";
 import { FaSearch } from "react-icons/fa"; // React icons'dan search icon'u ekleniyor

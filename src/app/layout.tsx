@@ -3,8 +3,7 @@ import "@/styles/global.css";
 import Menu from "@/components/Menu";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-// import { UserProvider } from "@/context/AuthContext";
-import { UserProvider } from "@/context/AuthContext";
+import { UserProvider } from "@/newcontext/AuthContext";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
