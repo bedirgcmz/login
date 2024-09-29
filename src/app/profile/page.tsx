@@ -12,7 +12,7 @@ export default function Profile() {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen mt-8">
-      {/* Profil Kartı */}
+      <h1 className="w-full text-center text-3xl">My Profile</h1>
       <div className="flex flex-col md:flex-row items-center p-8 rounded-lg shadow-lg w-full max-w-4xl">
         {/* Kullanıcı Resmi */}
         <div className="md:w-1/3 flex justify-center md:justify-start mb-6 md:mb-0">
@@ -25,10 +25,9 @@ export default function Profile() {
 
         {/* Kullanıcı Bilgileri */}
         <div className="md:w-2/3 flex flex-col items-start justify-center">
-          {/* İsim */}
-          <h1 className="text-3xl font-bold mb-4">{user?.name}</h1>
-
-          {/* Şifre */}
+          <span>Name</span>
+          <h1 className="text-2xl mb-4">{user?.name}</h1>
+          <span>Password</span>
           <div className="flex items-center w-full mb-4">
             <input
               type={showPassword ? "text" : "password"}
