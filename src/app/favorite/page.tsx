@@ -4,6 +4,7 @@ import { registeredUser } from "@/utils/users";
 import { useUserContext } from "@/newcontext/AuthContext";
 import { userContextType } from "@/utils/types";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 const FavoritesPage = () => {
   const userContext = useUserContext();
@@ -117,7 +118,12 @@ const FavoritesPage = () => {
 
               {/* Kartın altındaki butonlar */}
               <div className="flex justify-between items-center mt-auto">
-                <button className="text-[#b08968] hover:text-[#7f5539]">Recipe</button>
+                <Link
+                  href={`/recipe/${meal.idMeal}`}
+                  className="text-[#b08968] hover:text-[#7f5539]"
+                >
+                  Recipe
+                </Link>
                 <button
                   onClick={() => removeMealFromFavoriList(meal.idMeal)}
                   className="text-[#ff8fab] hover:text-red-700"
