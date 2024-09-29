@@ -1,5 +1,5 @@
 "use client";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -63,6 +63,13 @@ const Menu = () => {
     setLeftVal(pValue);
     closeMenu();
   };
+
+  useEffect(() => {
+    console.log("degisti");
+    if (pathname === "/profile" || pathname === "/favorite") {
+      setLeftVal("hidden");
+    }
+  }, [pathname]);
 
   return (
     <div className="relative">
@@ -202,6 +209,7 @@ const Menu = () => {
                   )}
                 </a>
               </Link>
+              {loggedIn ? <ProfileIcon /> : ""}
             </motion.div>
           </>
         )}

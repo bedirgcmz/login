@@ -68,12 +68,12 @@ const ProfileIcon = () => {
       <motion.div
         animate={isOpen ? "open" : "closed"}
         variants={menuVariants}
-        className="absolute top-[30px] left-[-35px] bg-[#e6ccb2] w-[100px] rounded-b-lg px-2 pb-1 pt-2 z-[-1]"
+        className="absolute top-[30px] left-[0] md:left-[-35px] bg-[#ddb892] md:bg-[#e6ccb2] w-[100px] md:rounded-b-lg px-2 pb-1 pt-2 z-[-1]"
       >
         <motion.ul>
           <motion.li
             variants={itemVariants}
-            className="px-1 py-[4px] flex items-center gap-1 hover:bg-[#b08968] hover:text-white rounded-lg cursor-pointer"
+            className="px-1 py-[4px] flex items-center gap-1 hover:bg-[#b08968] hover:text-white md:rounded-lg cursor-pointer"
           >
             <Link href="/profile" legacyBehavior className="text-[14px] font-bold">
               Profile
