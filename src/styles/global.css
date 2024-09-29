@@ -26,6 +26,10 @@ body {
   background-size: cover;
 }
 .active {
+  /* background-color: #9c6644; */
+  color: #e6ccb2;
+}
+.active-mobile {
   background-color: #9c6644;
   color: #e6ccb2;
 }
