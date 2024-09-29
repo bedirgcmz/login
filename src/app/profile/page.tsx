@@ -11,7 +11,7 @@ export default function Profile() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen mt-8">
+    <div className="flex flex-col items-center justify-start min-h-screen mt-8 px-3">
       <h1 className="w-full text-center text-3xl">My Profile</h1>
       <div className="flex flex-col md:flex-row items-center p-8 rounded-lg shadow-lg w-full max-w-4xl">
         {/* Kullanıcı Resmi */}
