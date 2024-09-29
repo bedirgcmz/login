@@ -8,6 +8,7 @@ import { RiLoginCircleFill, RiLoginCircleLine } from "react-icons/ri";
 import { useUserContext } from "@/newcontext/AuthContext";
 import { userContextType } from "@/utils/types";
 import ProfileIcon from "../ProfileIcon";
+import { usePathname } from "next/navigation";
 
 const categories = ["Seafood", "Vegetarian", "Chicken", "Dessert", "Beef"];
 
@@ -30,13 +31,17 @@ const Menu = () => {
     // setPassword("");
   };
 
+  const pathname = usePathname();
+
   return (
     <div className="relative">
       {/* Ana menü çubuğu */}
       <div className="flex items-center justify-between h-10 px-4 bg-[#e6ccb2] border-b border-gray-300">
         <Link
           href="/"
-          className="items-center flex justify-center text-2xl text-[#b08968]  hover:text-[#9c6644]"
+          className={`items-center flex justify-center text-2xl h-10 text-[#b08968] hover:bg-[#9c6644] hover:text-[#e6ccb2] p-2 rounded-full ${
+            pathname === "/" ? "active" : ""
+          }`}
         >
           <AiFillHome />
         </Link>
@@ -48,7 +53,11 @@ const Menu = () => {
               <li key={category}>
                 {/* Kategoriye göre dinamik linkleme */}
                 <Link href={`/category/${category.toLowerCase()}`} legacyBehavior>
-                  <a className="flex items-center justify-center h-10 px-3 transition duration-200 ease-in-out text-[#7f5539] hover:bg-[#9c6644] hover:text-[#e6ccb2]">
+                  <a
+                    className={`flex items-center justify-center h-10 px-3 transition duration-200 ease-in-out text-[#7f5539] hover:bg-[#9c6644] hover:text-[#e6ccb2] ${
+                      pathname === `/category/${category.toLowerCase()}` ? "active" : ""
+                    }`}
+                  >
                     {category}
                   </a>
                 </Link>
@@ -122,8 +131,10 @@ const Menu = () => {
                     <li key={category}>
                       <Link href={`/category/${category.toLowerCase()}`} legacyBehavior>
                         <a
-                          className="block text-[#7f5539] hover:bg-[#9c6644] hover:text-[#e6ccb2] p-2 rounded"
-                          onClick={closeMenu} // Link tıklanınca menü kapanır
+                          className={`block text-[#7f5539] hover:bg-[#9c6644] hover:text-[#e6ccb2] p-2 rounded ${
+                            pathname === `/category/${category.toLowerCase()}` ? "active" : ""
+                          }`}
+                          onClick={closeMenu}
                         >
                           {category}
                         </a>
@@ -139,7 +150,7 @@ const Menu = () => {
               <Link href="/login" legacyBehavior>
                 <a
                   className=" text-[#7f5539] hover:bg-[#9c6644] hover:text-[#e6ccb2] px-2 py-1 rounded flex items-center justify-center border border-[#9c6644] "
-                  onClick={closeMenu} // Link tıklanınca menü kapanır
+                  onClick={closeMenu}
                 >
                   {loggedIn ? (
                     <div onClick={handleLogout} className="flex w-20 items-center justify-center">

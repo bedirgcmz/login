@@ -59,7 +59,6 @@ export default function Home() {
       const res = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`);
       const data = await res.json();
       setMeals(data.meals ? data.meals.slice(0, 10) : []);
-      console.log(meals);
     } catch (error) {
       console.error("Error searching meals:", error);
     }
@@ -82,7 +81,6 @@ export default function Home() {
   const addMealToFavoriList = (pMealId: string) => {
     if (!loggedIn) {
       Swal.fire("Please log in for this feature.!");
-      console.log(user);
     } else {
       const userItem = registeredUser.find((item) => item.id === user?.id);
 

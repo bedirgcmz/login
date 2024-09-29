@@ -13,8 +13,6 @@ const CategoryPage = ({ params }: { params: { category: string } }) => {
   const [visibleCount, setVisibleCount] = useState<number>(6); // Başlangıçta görüntülenecek yemek sayısı
   const [isMoreAvailable, setIsMoreAvailable] = useState<boolean>(true); // Daha fazla ürün olup olmadığını kontrol etmek için
 
-  console.log(params.category);
-
   useEffect(() => {
     const fetchMeals = async () => {
       try {
@@ -43,7 +41,6 @@ const CategoryPage = ({ params }: { params: { category: string } }) => {
   };
 
   const addMealToFavoriList = (pMealId: string) => {
-    // registeredUser.find((item) => item.id == user?.id)?.favoriList.includes(pMealId) ? registeredUser.find((item) => item.id == user?.id)?.favoriList.push(pMealId) : "";
     // registeredUser içindeki ilgili kullanıcıyı bul
     const userItem = registeredUser.find((item) => item.id === user?.id);
 
@@ -58,11 +55,11 @@ const CategoryPage = ({ params }: { params: { category: string } }) => {
           title: "Successful",
           showConfirmButton: false,
           timer: 800,
-          width: "250px", // Modal genişliğini ayarlamak için
+          width: "250px",
           customClass: {
-            popup: "p-2 text-sm", // İçeriğin boyutunu küçültmek için
-            icon: "text-xs", // İkonun boyutunu küçültmek için
-            title: "text-sm", // Başlık boyutunu küçültmek için
+            popup: "p-2 text-sm",
+            icon: "text-xs",
+            title: "text-sm",
           },
         });
       } else {
