@@ -1,6 +1,10 @@
-import bg from "../../../public/images/bgheader.png";
+"use client";
+import { useUserContext } from "@/newcontext/AuthContext";
+import { userContextType } from "@/utils/types";
 
 const Header = () => {
+  const userContext = useUserContext();
+  const { user } = userContext as userContextType;
   return (
     <div
       className="w-full bg-cover bg-center"
@@ -9,6 +13,7 @@ const Header = () => {
       <h1 className="text-center text-5xl md:text-6xl py-6 bg-[#b08968] text-[#e6ccb2] charmonman-bold header-bg">
         "Cooking is an art"
       </h1>
+      <p className="w-full text-center text-xl pb-2">{user && `Welcome ${user.name}`}</p>
     </div>
   );
 };

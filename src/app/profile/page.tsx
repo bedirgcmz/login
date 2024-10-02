@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useUserContext } from "@/newcontext/AuthContext";
 import { userContextType } from "@/utils/types";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // React Icons kütüphanesi ekleniyor
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 
 export default function Profile() {
