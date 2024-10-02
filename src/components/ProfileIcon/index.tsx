@@ -4,7 +4,11 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 
-const ProfileIcon = () => {
+type ProfileIconProps = {
+  setMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const ProfileIcon: React.FC<ProfileIconProps> = ({ setMenuOpen }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -56,6 +60,11 @@ const ProfileIcon = () => {
     },
   };
 
+  const closeSubMenus = () => {
+    setIsOpen(false);
+    setMenuOpen(false);
+  };
+
   return (
     <div
       ref={dropdownRef}
@@ -75,16 +84,20 @@ const ProfileIcon = () => {
             variants={itemVariants}
             className="px-1 py-[4px] flex items-center gap-1 hover:bg-[#b08968] hover:text-white md:rounded-lg cursor-pointer"
           >
-            <Link href="/profile" legacyBehavior className="text-[14px] font-bold">
-              Profile
+            <Link href="/profile" legacyBehavior>
+              <a onClick={() => closeSubMenus()} className="text-[14px] w-full">
+                Profile
+              </a>
             </Link>
           </motion.li>
           <motion.li
             variants={itemVariants}
             className="px-1 py-[4px] flex items-center gap-1 hover:bg-[#b08968] hover:text-white rounded-lg cursor-pointer"
           >
-            <Link href="/favorite" legacyBehavior className="text-[14px] font-bold">
-              Favorites
+            <Link href="/favorite" legacyBehavior>
+              <a onClick={() => closeSubMenus()} className="text-[14px] w-full">
+                Favorites
+              </a>
             </Link>
           </motion.li>
         </motion.ul>

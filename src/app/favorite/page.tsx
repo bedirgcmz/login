@@ -9,16 +9,16 @@ import Link from "next/link";
 const FavoritesPage = () => {
   const userContext = useUserContext();
   const { loggedIn, setLoggedIn, user, setUser } = userContext as userContextType;
-  const [meals, setMeals] = useState<any[]>([]); // Yemek verilerini tutmak için state
-  const [visibleCount, setVisibleCount] = useState<number>(6); // Başlangıçta görüntülenecek yemek sayısı
-  const [isMoreAvailable, setIsMoreAvailable] = useState<boolean>(true); // Daha fazla ürün olup olmadığını kontrol etmek için
+  const [meals, setMeals] = useState<any[]>([]);
+  const [visibleCount, setVisibleCount] = useState<number>(6);
+  const [isMoreAvailable, setIsMoreAvailable] = useState<boolean>(true);
 
   // Fetch meals from API based on user's favorite list
   const fetchMeals = async () => {
     if (!user?.favoriList || user.favoriList.length === 0) return;
 
-    const fetchedMeals: any[] = []; // Yeni meal verilerini tutacak geçici dizi
-    const mealIds = new Set(meals.map((meal) => meal.idMeal)); // Mevcut meal ID'lerini tutan Set
+    const fetchedMeals: any[] = [];
+    const mealIds = new Set(meals.map((meal) => meal.idMeal));
 
     // Favori listedeki her ID için API'den veri çekme
     for (const mealId of user.favoriList) {
@@ -30,20 +30,16 @@ const FavoritesPage = () => {
 
         // Eğer meal daha önce eklenmemişse diziyi güncelle
         if (data.meals && data.meals.length > 0 && !mealIds.has(mealId)) {
-          fetchedMeals.push(data.meals[0]); // Tek bir meal objesi olduğu için [0] kullanıyoruz
+          fetchedMeals.push(data.meals[0]);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     }
 
-    // State'i bir defada güncelle
     setMeals(fetchedMeals);
-    console.log(meals);
-    console.log(fetchedMeals);
   };
 
-  // useEffect, component ilk render olduğunda çalışır
   useEffect(() => {
     fetchMeals();
   }, []);
@@ -115,8 +111,6 @@ const FavoritesPage = () => {
               <h3 className="text-xl font-semibold mb-2">
                 {meal.strMeal.length > 40 ? meal.strMeal.slice(0, 40) + "..." : meal.strMeal}
               </h3>
-
-              {/* Kartın altındaki butonlar */}
               <div className="flex justify-between items-center mt-auto">
                 <Link
                   href={`/recipe/${meal.idMeal}`}

@@ -6,7 +6,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 
 export default function Profile() {
-  const { user, setUser, loggedIn, setLoggedIn } = useUserContext() as userContextType;
+  const { user } = useUserContext() as userContextType;
 
   const [showPassword, setShowPassword] = useState(false);
 

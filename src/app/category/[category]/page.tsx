@@ -9,9 +9,9 @@ import Link from "next/link";
 const CategoryPage = ({ params }: { params: { category: string } }) => {
   const userContext = useUserContext();
   const { loggedIn, setLoggedIn, user, setUser } = userContext as userContextType;
-  const [meals, setMeals] = useState<any[]>([]); // Yemek verilerini tutmak için state
-  const [visibleCount, setVisibleCount] = useState<number>(6); // Başlangıçta görüntülenecek yemek sayısı
-  const [isMoreAvailable, setIsMoreAvailable] = useState<boolean>(true); // Daha fazla ürün olup olmadığını kontrol etmek için
+  const [meals, setMeals] = useState<any[]>([]);
+  const [visibleCount, setVisibleCount] = useState<number>(6);
+  const [isMoreAvailable, setIsMoreAvailable] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -28,7 +28,7 @@ const CategoryPage = ({ params }: { params: { category: string } }) => {
     };
 
     fetchMeals();
-  }, [params.category]); // `params.category` değiştiğinde API tekrar çağrılacak
+  }, [params.category]);
 
   const handleSeeMore = () => {
     // "See More" butonuna tıklanınca görünür olan yemek sayısını artırma
@@ -46,7 +46,6 @@ const CategoryPage = ({ params }: { params: { category: string } }) => {
 
     // Eğer kullanıcı varsa ve favori listesi tanımlı ise
     if (userItem && userItem.favoriList) {
-      // favoriList içinde pMealId yoksa, ekle
       if (!userItem.favoriList.includes(pMealId)) {
         userItem.favoriList.push(pMealId);
         Swal.fire({
@@ -95,8 +94,6 @@ const CategoryPage = ({ params }: { params: { category: string } }) => {
             <h3 className="text-xl font-semibold mb-2">
               {meal.strMeal.length > 40 ? meal.strMeal.slice(0, 40) + "..." : meal.strMeal}
             </h3>
-
-            {/* Kartın altındaki butonlar */}
             <div className="flex justify-between items-center mt-auto">
               <Link href={`/recipe/${meal.idMeal}`} className="text-[#b08968] hover:text-[#7f5539]">
                 Recipe

@@ -1,4 +1,3 @@
-// layout.tsx
 import "@/styles/global.css";
 import Menu from "@/components/Menu";
 import Header from "@/components/Header";
@@ -9,7 +8,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="flex flex-col min-h-[100vh]">
-        {/* UserProvider ile tüm uygulamayı sarmalıyoruz */}
         <UserProvider>
           <Header />
           <Menu />

@@ -41,7 +41,6 @@ const categories: Category[] = [
 const Menu = () => {
   const userContext = useUserContext();
   const { loggedIn, setLoggedIn, user, setUser } = userContext as userContextType;
-  // Menü açılma/kapama durumu
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Menü toggle işlevi
@@ -53,8 +52,6 @@ const Menu = () => {
   const handleLogout = () => {
     setLoggedIn(false);
     setUser(null);
-    // setUsername("");
-    // setPassword("");
   };
 
   const pathname = usePathname();
@@ -65,11 +62,12 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    console.log("degisti");
     if (pathname === "/profile" || pathname === "/favorite") {
       setLeftVal("hidden");
     }
   }, [pathname]);
+
+  console.log(menuOpen);
 
   return (
     <div className="relative">
@@ -113,7 +111,7 @@ const Menu = () => {
 
         {/* Sağ Taraf: Login Butonu */}
         <div className="hidden md:flex justify-end z-10">
-          {loggedIn ? <ProfileIcon /> : ""}
+          {loggedIn ? <ProfileIcon setMenuOpen={setMenuOpen} /> : ""}
           <Link href="/login" legacyBehavior>
             <a className="flex items-center justify-center h-8 px-2 text-[#7f5539] border border-[#b08968] rounded hover:bg-[#9c6644] hover:text-[#e6ccb2]">
               {loggedIn ? (
@@ -142,10 +140,9 @@ const Menu = () => {
       <AnimatePresence>
         {menuOpen && (
           <>
-            {/* Arka plan (şeffaf siyah) */}
             <motion.div
               className="fixed inset-0 bg-black bg-opacity-50"
-              onClick={closeMenu} // Menü dışına tıklanınca kapanır
+              onClick={closeMenu}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -154,9 +151,9 @@ const Menu = () => {
             {/* Yan menü */}
             <motion.div
               className="fixed top-0 left-0 h-full w-64 bg-[#e6ccb2] shadow-lg p-4 flex flex-col gap-4 z-50"
-              initial={{ x: "-100%" }} // Menünün başlangıç pozisyonu
-              animate={{ x: 0 }} // Menünün görünür pozisyonu
-              exit={{ x: "-100%" }} // Menü kapatılınca animasyonlu çıkış
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
               {/* Menü Kapatma */}
@@ -179,7 +176,6 @@ const Menu = () => {
                               ? "active-mobile"
                               : ""
                           }`}
-                          // onClick={closeMenu}
                           onClick={() => relativeValue(category.positionValue)}
                         >
                           {category.name}
@@ -209,7 +205,7 @@ const Menu = () => {
                   )}
                 </a>
               </Link>
-              {loggedIn ? <ProfileIcon /> : ""}
+              {loggedIn ? <ProfileIcon setMenuOpen={setMenuOpen} /> : ""}
             </motion.div>
           </>
         )}
