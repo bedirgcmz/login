@@ -26,10 +26,33 @@ body {
   background-size: cover;
 }
 .active {
-  /* background-color: #9c6644; */
+  background-color: #9c6644;
   color: #e6ccb2;
 }
 .active-mobile {
   background-color: #9c6644;
   color: #e6ccb2;
+}
+
+.custom-hover {
+  /* transition: all 0.3s ease; */
+  z-index: 1;
+}
+
+.custom-hover:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background: #9c6644;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+.custom-hover:hover:after {
+  top: 0;
+  height: 100%;
 }

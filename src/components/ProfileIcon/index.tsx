@@ -68,7 +68,7 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ setMenuOpen }) => {
   return (
     <div
       ref={dropdownRef}
-      className="relative text-darkblack flex justify-between items-center mr-2"
+      className="relative text-darkblack flex justify-between items-center ml-2 text-[#ede0d4]"
     >
       <button onClick={toggleDropdown} className="flex items-center">
         <FaRegUserCircle />
@@ -77,12 +77,12 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ setMenuOpen }) => {
       <motion.div
         animate={isOpen ? "open" : "closed"}
         variants={menuVariants}
-        className="absolute top-[30px] left-[0] md:left-[-35px] bg-[#ddb892] md:bg-[#e6ccb2] w-[100px] md:rounded-b-lg px-2 pb-1 pt-2 z-[-1]"
+        className="absolute top-[34px] left-[0] md:left-[-53px] bg-[#ddb892] md:bg-[#e6ccb2] w-[100px] md:rounded-b-lg px-2 pb-1 pt-2 z-[-1]"
       >
         <motion.ul>
           <motion.li
             variants={itemVariants}
-            className="px-1 py-[4px] flex items-center gap-1 hover:bg-[#b08968] hover:text-white md:rounded-lg cursor-pointer"
+            className="px-1 py-[4px] flex items-center gap-1 text-[#b08968] hover:bg-[#b08968] hover:text-white md:rounded-lg cursor-pointer"
           >
             <Link href="/profile" legacyBehavior>
               <a onClick={() => closeSubMenus()} className="text-[14px] w-full">
@@ -92,7 +92,7 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ setMenuOpen }) => {
           </motion.li>
           <motion.li
             variants={itemVariants}
-            className="px-1 py-[4px] flex items-center gap-1 hover:bg-[#b08968] hover:text-white rounded-lg cursor-pointer"
+            className="px-1 py-[4px] flex items-center gap-1 text-[#b08968] hover:bg-[#b08968] hover:text-white rounded-lg cursor-pointer"
           >
             <Link href="/favorite" legacyBehavior>
               <a onClick={() => closeSubMenus()} className="text-[14px] w-full">

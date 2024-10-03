@@ -9,39 +9,42 @@ import { useUserContext } from "@/newcontext/AuthContext";
 import { userContextType } from "@/utils/types";
 import ProfileIcon from "../ProfileIcon";
 import { usePathname } from "next/navigation";
+import Header from "../Header";
+// import "@/styles/global.css";
 
-type Category = {
-  name: string;
-  positionValue: string;
-};
+// type Category = {
+//   name: string;
+//   positionValue: string;
+// };
 
-const categories: Category[] = [
-  {
-    name: "Seafood",
-    positionValue: "left-0",
-  },
-  {
-    name: "Vegetarian",
-    positionValue: "left-[110px]",
-  },
-  {
-    name: "Chicken",
-    positionValue: "left-[220px]",
-  },
-  {
-    name: "Dessert",
-    positionValue: "left-[330px]",
-  },
-  {
-    name: "Beef",
-    positionValue: "left-[440px]",
-  },
-];
+// const categories: Category[] = [
+//   {
+//     name: "Seafood",
+//     positionValue: "left-0",
+//   },
+//   {
+//     name: "Vegetarian",
+//     positionValue: "left-[110px]",
+//   },
+//   {
+//     name: "Chicken",
+//     positionValue: "left-[220px]",
+//   },
+//   {
+//     name: "Dessert",
+//     positionValue: "left-[330px]",
+//   },
+//   {
+//     name: "Beef",
+//     positionValue: "left-[440px]",
+//   },
+// ];
 
 const Menu = () => {
   const userContext = useUserContext();
   const { loggedIn, setLoggedIn, user, setUser } = userContext as userContextType;
   const [menuOpen, setMenuOpen] = useState(false);
+  const [categories, setCategories] = useState<any[]>([]);
 
   // Menü toggle işlevi
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -62,58 +65,42 @@ const Menu = () => {
   };
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        // Kategoriye göre API'den verileri çekme
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`);
+        const data = await response.json();
+        setCategories(data.categories);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  useEffect(() => {
     if (pathname === "/profile" || pathname === "/favorite") {
       setLeftVal("hidden");
     }
   }, [pathname]);
 
-  console.log(menuOpen);
-
   return (
     <div className="relative">
       {/* Ana menü çubuğu */}
-      <div className="flex items-center justify-between h-10 px-4 bg-[#e6ccb2] border-b border-gray-300">
+      <div className="flex items-center justify-between mb-[-40px] h-10 px-4 bg-[#e6ccb2] border-b border-gray-300">
         <Link
           onClick={() => relativeValue("hidden")}
           href="/"
-          className={`items-center flex justify-center text-2xl h-10 text-[#b08968] hover:bg-[#9c6644] hover:text-[#b08968] p-2 rounded-full ${
+          className={`items-center flex justify-center text-2xl h-10 text-[#ede0d4] hover:bg-[#9c6644] p-2 rounded-full ${
             pathname === "/" ? "active-mobile" : ""
           }`}
         >
           <AiFillHome />
         </Link>
-
-        {/* Ortada Liste Elemanları */}
-        {loggedIn ? (
-          <ul className="hidden md:flex justify-center list-none p-0 m-0 relative">
-            {categories.map((category) => (
-              <li key={category.name}>
-                {/* Kategoriye göre dinamik linkleme */}
-                <Link href={`/category/${category.name.toLowerCase()}`} legacyBehavior>
-                  <a
-                    className={`flex items-center justify-center h-10 w-[110px] z-20 relative transition duration-200 ease-in-out text-[#7f5539]  hover:text-[#b08968] ${
-                      pathname === `/category/${category.name.toLowerCase()}` ? "active" : ""
-                    }`}
-                    onClick={() => relativeValue(category.positionValue)}
-                  >
-                    {category.name}
-                  </a>
-                </Link>
-              </li>
-            ))}
-            <span
-              className={`bg-[#9c6644] transition-all duration-500 h-10 w-[110px] z-10 absolute top-0 ${leftVal}`}
-            ></span>
-          </ul>
-        ) : (
-          <p>Please log in to see categories!</p>
-        )}
-
-        {/* Sağ Taraf: Login Butonu */}
         <div className="hidden md:flex justify-end z-10">
-          {loggedIn ? <ProfileIcon setMenuOpen={setMenuOpen} /> : ""}
           <Link href="/login" legacyBehavior>
-            <a className="flex items-center justify-center h-8 px-2 text-[#7f5539] border border-[#b08968] rounded hover:bg-[#9c6644] hover:text-[#e6ccb2]">
+            <a className="flex items-center justify-center h-8 px-2 text-[#ede0d4] border border-[#ede0d4] rounded hover:bg-[#9c6644] hover:text-[#e6ccb2]">
               {loggedIn ? (
                 <div onClick={handleLogout} className="flex w-18 items-center justify-center">
                   <span className="me-2">Logout</span> <RiLoginCircleLine />
@@ -125,15 +112,38 @@ const Menu = () => {
               )}
             </a>
           </Link>
+          {loggedIn ? <ProfileIcon setMenuOpen={setMenuOpen} /> : ""}
         </div>
-
         {/* Mobil Menü İkonu */}
         <button
-          className="md:hidden flex items-center justify-center h-10 w-10 text-[#7f5539] focus:outline-none"
+          className="md:hidden z-30 flex items-center justify-center h-10 w-10 text-[#7f5539] focus:outline-none"
           onClick={toggleMenu}
         >
           <MenuIcon />
         </button>
+      </div>
+      <Header />
+      {/* Kategori menu elemanlari */}
+      <div className="flex items-center justify-center min-h-10 p-4 bg-[#e6ccb2] border-b border-gray-300">
+        {loggedIn ? (
+          <ul className="hidden md:flex justify-center flex-wrap gap-2 list-none p-0 m-0 ">
+            {categories.map((category) => (
+              <li key={category.strCategory} className="relative">
+                <Link href={`/category/${category.strCategory.toLowerCase()}`} legacyBehavior>
+                  <a
+                    className={`flex items-center justify-center h-10 w-[110px] rounded-lg shadow-lg relative transition duration-200 ease-in-out text-[#7f5539] hover:text-[#e6ccb2] custom-hover ${
+                      pathname === `/category/${category.strCategory.toLowerCase()}` ? "active" : ""
+                    }`}
+                  >
+                    {category.strCategory}
+                  </a>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Please log in to see categories!</p>
+        )}
       </div>
 
       {/* Mobil Menü Overlay ve Menü İçeriği */}
@@ -150,7 +160,7 @@ const Menu = () => {
 
             {/* Yan menü */}
             <motion.div
-              className="fixed top-0 left-0 h-full w-64 bg-[#e6ccb2] shadow-lg p-4 flex flex-col gap-4 z-50"
+              className="fixed top-0 left-0 h-full w-64 bg-[#e6ccb2] overflow-y-scroll shadow-lg p-4 pb-24 flex flex-col gap-4 z-50"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
@@ -158,7 +168,7 @@ const Menu = () => {
             >
               {/* Menü Kapatma */}
               <button
-                className="self-end text-[#7f5539] hover:text-[#9c6644] focus:outline-none"
+                className="self-end text-[#7f5539] z-30 hover:text-[#9c6644] focus:outline-none"
                 onClick={closeMenu}
               >
                 X
@@ -168,17 +178,17 @@ const Menu = () => {
               {loggedIn ? (
                 <ul className="flex flex-col gap-4 list-none p-0 m-0">
                   {categories.map((category) => (
-                    <li key={category.name}>
-                      <Link href={`/category/${category.name.toLowerCase()}`} legacyBehavior>
+                    <li key={category.strCategory}>
+                      <Link href={`/category/${category.strCategory.toLowerCase()}`} legacyBehavior>
                         <a
                           className={`block text-[#7f5539] hover:bg-[#9c6644] hover:text-[#e6ccb2] p-2 rounded ${
-                            pathname === `/category/${category.name.toLowerCase()}`
+                            pathname === `/category/${category.strCategory.toLowerCase()}`
                               ? "active-mobile"
                               : ""
                           }`}
-                          onClick={() => relativeValue(category.positionValue)}
+                          onClick={() => setMenuOpen(false)}
                         >
-                          {category.name}
+                          {category.strCategory}
                         </a>
                       </Link>
                     </li>
