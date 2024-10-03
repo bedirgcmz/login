@@ -60,7 +60,6 @@ const FavoritesPage = () => {
         password: userItem.password,
         image: userItem.image,
       });
-      // setUser((prevUser: any) => ({ ...prevUser!, favoriList: userItem.favoriList, name }));
 
       // Meals state'inden öğeyi kaldırma
       setMeals((prevMeals) => prevMeals.filter((meal) => meal.idMeal !== pMealId));

@@ -139,7 +139,7 @@ const Menu = () => {
       {/* Mobil Menü Overlay ve Menü İçeriği */}
       <AnimatePresence>
         {menuOpen && (
-          <>
+          <div>
             <motion.div
               className="fixed inset-0 bg-black bg-opacity-50"
               onClick={closeMenu}
@@ -207,7 +207,7 @@ const Menu = () => {
               </Link>
               {loggedIn ? <ProfileIcon setMenuOpen={setMenuOpen} /> : ""}
             </motion.div>
-          </>
+          </div>
         )}
       </AnimatePresence>
     </div>
